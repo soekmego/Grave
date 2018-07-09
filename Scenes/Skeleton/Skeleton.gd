@@ -1,8 +1,10 @@
 extends KinematicBody2D
 
 export (int) var speed = 100
+onready var sprite = $Sprite
 
 var direction = Vector2()
+var anim = ""
 
 func _ready():
 	pass
@@ -15,18 +17,27 @@ func movement_loop():
 		direction.x -= 1
 	direction = direction.normalized() * speed
 
-#func spritedir_loop():
-#	match direction.x:
-#		Vector2(1,0):
-#			$Sprite.flip_h = false
-#		Vector2(-1,0):
-#			$Sprite.flip_h = true
+func spritedir_loop():
+	if direction.x > 0:
+		sprite.flip_h = false
+	elif direction.x < 0:
+		sprite.flip_h = true
+
+func animation_loop():
+	var new_anim = "idle"
+	
+	if direction.x == 0:
+		new_anim = "idle"
+	else:
+		new_anim = "run"
+	
+	if new_anim != anim:
+		anim = new_anim
+		$Animation.play(anim)
 
 func _process(delta):
 	movement_loop()
 	move_and_slide(direction)
-	#spritedir_loop()
-	if direction.x > 0:
-		$Sprite.flip_h = false
-	if direction.x < 0:
-		$Sprite.flip_h = true
+	spritedir_loop()
+	animation_loop()
+	

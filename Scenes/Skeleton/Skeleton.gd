@@ -3,41 +3,56 @@ extends KinematicBody2D
 export (int) var speed = 100
 onready var sprite = $Sprite
 
+enum {IDLE, RUN, ROLL}
 var direction = Vector2()
+var state
 var anim = ""
+var new_anim
 
 func _ready():
-	pass
+	change_state(IDLE)
 
-func movement_loop():
+func change_state(new_state):
+	state = new_state
+	match state:
+		IDLE:
+			new_anim = "idle"
+		RUN:
+			new_anim = "run"
+		ROLL:
+			new_anim = "roll"
+
+func get_input():
 	direction = Vector2()
-	if Input.is_action_pressed("ui_right"):
+	var right = Input.is_action_pressed("ui_right")
+	var left = Input.is_action_pressed("ui_left")
+	var roll = Input.is_action_pressed("ui_select")
+	
+	if right and state != ROLL:
+		change_state(RUN)
 		direction.x += 1
-	if Input.is_action_pressed("ui_left"):
+		sprite.flip_h = false
+	
+	if left and state != ROLL:
+		change_state(RUN)
 		direction.x -= 1
+		sprite.flip_h = true
+	
+	if roll:
+		change_state(ROLL)
+	
+	if !right and !left and state == RUN:
+		change_state(IDLE)
+	
 	direction = direction.normalized() * speed
 
-func spritedir_loop():
-	if direction.x > 0:
-		sprite.flip_h = false
-	elif direction.x < 0:
-		sprite.flip_h = true
-
-func animation_loop():
-	var new_anim = "idle"
-	
-	if direction.x == 0:
-		new_anim = "idle"
-	else:
-		new_anim = "run"
-	
-	if new_anim != anim:
+func _process(delta):
+	get_input()
+	if anim != new_anim:
 		anim = new_anim
 		$Animation.play(anim)
-
-func _process(delta):
-	movement_loop()
 	move_and_slide(direction)
-	spritedir_loop()
-	animation_loop()
-	
+	#print(state)
+
+func _on_Animation_animation_finished(roll):
+	change_state(IDLE)

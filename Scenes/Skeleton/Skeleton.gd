@@ -40,6 +40,10 @@ func get_input():
 	
 	if roll:
 		change_state(ROLL)
+		if sprite.flip_h == false:
+			direction.x += 3
+		else:
+			direction.x -= 3
 	
 	if !right and !left and state == RUN:
 		change_state(IDLE)

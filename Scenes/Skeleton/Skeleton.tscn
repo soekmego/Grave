@@ -166,7 +166,6 @@ _sections_unfolded = [ "Offset", "Region", "Transform" ]
 
 position = Vector2( 0.447165, 2.89089 )
 shape = SubResource( 1 )
-disabled = true
 
 [node name="Animation" type="AnimationPlayer" parent="." index="2"]
 

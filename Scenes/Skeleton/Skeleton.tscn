@@ -1,9 +1,9 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scenes/Skeleton/Skeleton.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_attack_two_strip5.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_attack_one_strip5.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_run_strip6.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_attack_one_strip5.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_attack_two_strip5.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_attack_three_strip6.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_idle_strip3.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Sprites/Skeleton/s_skeleton_roll_strip7.png" type="Texture" id=7]
@@ -72,7 +72,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 4 ) ]
+"values": [ ExtResource( 2 ) ]
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -123,7 +123,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 2 ) ]
+"values": [ ExtResource( 4 ) ]
 }
 tracks/2/type = "method"
 tracks/2/path = NodePath(".")
@@ -307,7 +307,7 @@ speed = 100
 
 texture = ExtResource( 2 )
 region_enabled = true
-region_rect = Rect2( 386, 11, 75, 37 )
+region_rect = Rect2( -2.2005, 12, 67.2005, 36 )
 _sections_unfolded = [ "Offset", "Region", "Transform" ]
 
 [node name="Collision" type="CollisionShape2D" parent="." index="1"]

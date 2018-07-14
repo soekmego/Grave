@@ -48,6 +48,7 @@ func get_input():
 		sprite.flip_h = true
 	
 	if roll:
+		# TODO - need to implement check for running roll anim
 		change_state(ROLL)
 		if sprite.flip_h == false:
 			direction.x += 3

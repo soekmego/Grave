@@ -59,10 +59,10 @@ func get_input():
 		match state:
 			IDLE, RUN:
 				change_state(ATTACK1)
-			ATTACK1:
-				change_state(ATTACK2)
-			ATTACK2:
-				change_state(ATTACK3)
+			#ATTACK1:
+			#	change_state(ATTACK2)
+			#ATTACK2:
+			#	change_state(ATTACK3)
 	
 	direction = direction.normalized() * speed
 
@@ -75,4 +75,6 @@ func _process(delta):
 	#print(state)
 
 func _on_Animation_animation_finished(animation):
-	change_state(IDLE)
+	match animation:
+		"roll", "attack1", "attack2", "attack3":
+			change_state(IDLE)

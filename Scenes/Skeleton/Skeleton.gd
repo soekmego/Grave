@@ -35,15 +35,15 @@ func get_input():
 	direction = Vector2()
 	var right = Input.is_action_pressed("ui_right")
 	var left = Input.is_action_pressed("ui_left")
-	var roll = Input.is_action_pressed("ui_select")
-	var attack = Input.is_action_pressed("ui_accept")
+	var roll = Input.is_action_just_pressed("ui_select")
+	var attack = Input.is_action_just_pressed("ui_accept")
 	
 	if right and state == IDLE:
 		change_state(RUN)
 		direction.x += 1
 		sprite.flip_h = false
 	
-	if left and state == IDLE:
+	elif left and state == IDLE:
 		change_state(RUN)
 		direction.x -= 1
 		sprite.flip_h = true
@@ -51,17 +51,17 @@ func get_input():
 	# TODO - fix roll mechanic.
 	# When roll button is hammered, player gets stuck
 	# in the last frame of roll animation.
-	if roll and (state == IDLE or state == RUN):
+	elif roll and (state == IDLE or state == RUN):
 		change_state(ROLL)
 		if sprite.flip_h == false:
 			direction.x += 3
 		else:
 			direction.x -= 3
 	
-	if !right and !left and state == RUN:
+	elif !right and !left and state == RUN:
 		change_state(IDLE)
 	
-	if attack:
+	elif attack:
 		match state:
 			IDLE, RUN:
 				change_state(ATTACK1)

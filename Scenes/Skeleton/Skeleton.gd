@@ -15,7 +15,8 @@ func _ready():
 	change_state(IDLE)
 
 func change_state(new_state):
-	state = new_state
+	if state != new_state:
+		state = new_state
 	match state:
 		IDLE:
 			new_anim = "idle"

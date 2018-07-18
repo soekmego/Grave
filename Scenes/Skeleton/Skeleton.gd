@@ -47,8 +47,10 @@ func get_input():
 		direction.x -= 1
 		sprite.flip_h = true
 	
-	if roll:
-		# TODO - need to implement check for running roll anim
+	# TODO - fix roll mechanic.
+	# When roll button is hammered, player gets stuck
+	# in the last frame of roll animation.
+	if roll and (state == IDLE or state == RUN):
 		change_state(ROLL)
 		if sprite.flip_h == false:
 			direction.x += 3

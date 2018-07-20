@@ -1,18 +1,16 @@
 extends KinematicBody2D
 
-export (int) var speed = 100
+export (int) var speed
 onready var sprite = $Sprite
 
 enum {IDLE, RUN, ROLL, ATTACK1, ATTACK2, ATTACK3}
 
-var direction = Vector2()
-var state
-var anim = ""
-var new_anim
-var combo = false
+onready var direction = Vector2()
+onready var state
+onready var anim = ""
+onready var new_anim
+onready var combo = false
 
-func _ready():
-	change_state(IDLE)
 
 func change_state(new_state):
 	if state != new_state:
@@ -80,6 +78,9 @@ func combo_enabled():
 
 func combo_disabled():
 	combo = false
+
+func _ready():
+	change_state(IDLE)
 
 func _process(delta):
 	get_input()

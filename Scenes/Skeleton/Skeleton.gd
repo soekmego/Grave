@@ -5,11 +5,11 @@ onready var sprite = $Sprite
 
 enum {IDLE, RUN, ROLL, ATTACK1, ATTACK2, ATTACK3}
 
-var direction = Vector2()
-var state
-var anim = ""
-var new_anim
-var combo = false
+onready var direction = Vector2()
+onready var state
+onready var anim = ""
+onready var new_anim
+onready var combo = false
 
 
 func change_state(new_state):
@@ -32,8 +32,8 @@ func get_input():
 	direction = Vector2()
 	var right = Input.is_action_pressed("ui_right")
 	var left = Input.is_action_pressed("ui_left")
-	var roll = Input.is_action_pressed("ui_select")
-	var attack = Input.is_action_pressed("ui_accept")
+	var roll = Input.is_action_just_pressed("ui_select")
+	var attack = Input.is_action_just_pressed("ui_accept")
 	
 	if right and state == IDLE:
 		change_state(RUN)
@@ -49,12 +49,12 @@ func get_input():
 	# When roll button is hammered, player gets stuck
 	# in the last frame of roll animation.
 	elif roll and (state == IDLE or state == RUN):
-		change_state(ROLL)
-		if sprite.flip_h == false:
-			direction.x += 3
-		else:
-			direction.x -= 3
-		#yield($Animation, "animation_finished")
+		if $Animation.current_animation != "roll":
+			change_state(ROLL)
+			if sprite.flip_h == false:
+				direction.x += 3
+			else:
+				direction.x -= 3
 	
 	elif !right and !left and state == RUN:
 		change_state(IDLE)
@@ -88,8 +88,3 @@ func _process(delta):
 		anim = new_anim
 		$Animation.play(anim)
 	move_and_slide(direction)
-
-func _on_Animation_animation_finished(animation):
-	match animation:
-		"roll", "attack1", "attack2", "attack3":
-			change_state(IDLE)

@@ -3,13 +3,13 @@ extends KinematicBody2D
 export (int) var speed
 onready var sprite = $Sprite
 
-enum {IDLE, RUN, ROLL, ATTACK1, ATTACK2, ATTACK3}
-
 onready var direction = Vector2()
 onready var state
 onready var anim = ""
 onready var new_anim
 onready var combo = false
+
+enum {IDLE, RUN, ROLL, ATTACK1, ATTACK2, ATTACK3}
 
 
 func change_state(new_state):
